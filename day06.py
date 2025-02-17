@@ -1,10 +1,23 @@
-def is_even(n) -> bool:
-    """
-    짝수 판정 함수
-    :param n: 판정할 함수
-    :return: True(짝수면) , False(홀수면)
-    """
-    return not n&1
+def factorial(number) -> int:
+    result = 1
+    for i in range(1, number+1):
+        result = result * i
+    return result
 
-n=int(input("숫자입력: "))
-print(is_even(n))
+
+def nCr(n, r) -> int:
+    '''
+    조합 함수
+    :param n:
+    :param r:
+    :return:
+    '''
+    up = factorial(n)
+    down = factorial(n-r) * factorial(r)
+    return int(up / down)
+
+
+if __name__ == "__main__":
+    n = int(input("Input n : "))
+    r = int(input("Input r : "))
+    print(f"{n} C {r} = {nCr(n, r)}")
