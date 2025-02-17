@@ -1,34 +1,43 @@
-#식 출력
-def print_poly(f_x, t_x) -> str:
-    poly_expression = "f(x) = "
+memo = dict()
 
-    for i in range(len(fx)):
-        coefficient = f_x[i]
-        term = t_x[i]
-
-            # 기호 설정          #맨 앞에는 +를 처리X
-        if coefficient >= 0 and i !=0:
-            poly_expression = poly_expression + "+"
-        poly_expression = poly_expression + f'{coefficient}x^{term} '
-    return poly_expression
-
-
-#x대입해서 계산
-def calculation_poly(x_value, f_x, t_x) -> int:
-    return_value = 0
-
-    for i in range(len(fx)):
-        coefficient = f_x[i]
-        term = t_x[i]
-        # x앞*(대입 수^차수)
-        return_value += coefficient * pow(x_value, term)
-
-    return return_value
+def fibonacci_recursion(n) -> int:
+    """
+    피보나치 수 계산함수 (재귀함수 버전)
+    :param n:
+    :return: 피보나치 계산 결과 값
+    """
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recursion(n-2) + fibonacci_recursion(n-1)
 
 
-fx = [2, 5, -9, 11] #x앞
-tx = [20, 7, 2, 0]  #차수
+def fibonacci_loop(n) -> int:
+    """
+    피보나치 수 계산함수 (반복문 버전)
+    :param n:
+    :return: 피보나치 계산 결과 값
+    """
+    n_list=[0 ,1]
+    for i in range(n+1):
+        n_list.append(n_list[i] + n_list[i + 1])
 
-if __name__ == "__main__":
-    print(print_poly(fx, tx))
-    print(calculation_poly(int(input("x 값 : ")), fx, tx))
+    return n_list[n]
+
+
+def fibonacci_memo(n) -> int:
+    if n in memo:  # 딕셔너리에 이미 계산된 결과가 있으면 그 값을 리턴
+        return memo[n]
+    elif n <= 1:  # 0이나 1이 오면 그 값을 바로 리턴
+        return n
+    else:
+        memo[n] = fibonacci_memo(n-2) + fibonacci_memo(n-1)  # 딕셔너리에 계산된 결과 값이 없을 경우 딕셔너리에 추가
+        return memo[n]
+
+
+n = int(input("수 입력:"))
+print(fibonacci_loop(n))
+print(fibonacci_recursion(n))
+print(fibonacci_memo(n))
