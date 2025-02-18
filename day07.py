@@ -1,10 +1,9 @@
-import random
-
 
 class Node:
     def __init__(self, data, next=None):
         self.data = data
         self.next = next
+
 
 class LinkedList:
     def __init__(self):
@@ -30,8 +29,24 @@ class LinkedList:
                 current = current.next
         return False
 
+    #지우기
+    def remove(self,target):
+        if self.head.data == target: #헤드를 지울 경우
+            self.head=self.head.next #헤드를 다음 헤드로
+            print('선두노드 삭제')
+            return
+        current = self.head
+        previous = None
+        while current:  #중간이 삭제된 경우
+            if current.data == target:
+                previous.next = current.next
+                break #이전 커런트를 기존 커런트의 다음 방향으로 옮김
+            else:
+                previous = current  #이전 것을 커런트로
+                current = current.next  #커런트를 앞의 값으로 옮겨간다.
 
-    def __str__(self):  #출력에 대한 설정
+    #출력 내용
+    def __str__(self):
         node = self.head
         while node is not None: #동일 node != None
             print(node.data)#노드 출력
@@ -41,11 +56,12 @@ class LinkedList:
 
 if __name__ == "__main__":
     l = LinkedList()
-    i=0
-    while i<20:
-        n=random.randint(1,20)
-        l.append(n)
-        print(n, end=' ')
-        i+=1
-#    print(l)
-    print(l.search(10))
+    l.append(7)
+    l.append(-11)
+    l.append(8)
+    print(l)
+    #l.remove(7)
+    l.remove(-11)
+    print(l)
+    l.remove(8)
+    print(l)
