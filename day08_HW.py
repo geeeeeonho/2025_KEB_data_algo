@@ -95,8 +95,10 @@ def tree_delete(del_group):
                     while sub_current.left is not None:
                         sub_parent = sub_current
                         sub_current = sub_current.left
-                    current.right = sub_current.left
-                    parent.left = sub_current  #c. 자식의 위치를 부모의 방향에
+                    sub_parent.left =None #기존의 위치에서는 값이 사라져야 함
+                    current=sub_current #자식의 값으로 바꾼다.
+                    parent.left = current #위치를 업데이트
+                    del current
                 else:  # 자신이 부모의 오른쪽에 있다면
                     # 임시 부모주소 생성
                     sub_parent = current
@@ -105,9 +107,10 @@ def tree_delete(del_group):
                     while sub_current.left is not None:
                         sub_parent = sub_current
                         sub_current = sub_current.left
-                    current.right = sub_current.left
-                    parent.right = sub_current  # c. 자식의 위치를 부모의 방향에
-                del (current)
+                    sub_parent.left = None  # 기존의 위치에서는 값이 사라져야 함
+                    current = sub_current  # 자식의 값으로 바꾼다.
+                    parent.right = current  # 위치를 업데이트
+                    del current
 
             print(del_group, '이(가) 삭제됨.')
             break
