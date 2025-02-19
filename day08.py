@@ -2,7 +2,7 @@
 def pre_order(node):
     if node is None:
         return
-    print(node.data, end='-') #처음엔 루트를 그 다음에는 방향 이동 후 출력
+    print(node.data, end='-') #출력 후 방향이동
     pre_order(node.left)
     pre_order(node.right)
 
@@ -23,7 +23,7 @@ def post_order(node):
     print(node.data, end='-')  #방향 이동 후 출력
 
 
-class TreeNode:
+class TreeNode: #각각의 노드[<-, 값, ->]
 	def __init__(self):
 		self.left = None
 		self.data = None
@@ -52,8 +52,20 @@ node6 = TreeNode()
 node6.data = 'sm'
 node3.left = node6
 
-post_order(node1) #후위순회
-print()
-pre_order(node1) #선위순회
-print()
-pre_order(node1) #중위순회
+node7 = TreeNode()
+node7.data = 'dh'
+node4.right = node7
+
+node8 = TreeNode()
+node8.data = 'sn'
+node6.right = node8
+
+print('선위순회')
+pre_order(node1)
+
+print('\n중위순회')
+in_order(node1)
+
+print('\n후위순회')
+post_order(node1)
+
