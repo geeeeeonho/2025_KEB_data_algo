@@ -1,3 +1,28 @@
+#재귀함수를 이용한 출력처리들
+def pre_order(node):
+    if node is None:
+        return
+    print(node.data, end='-') #처음엔 루트를 그 다음에는 방향 이동 후 출력
+    pre_order(node.left)
+    pre_order(node.right)
+
+
+def in_order(node):
+    if node is None:
+        return
+    in_order(node.left)
+    print(node.data, end='-')  #방향 이동 후 출력
+    in_order(node.right)
+
+
+def post_order(node):
+    if node is None:
+        return
+    post_order(node.left)
+    post_order(node.right)
+    print(node.data, end='-')  #방향 이동 후 출력
+
+
 class TreeNode:
 	def __init__(self):
 		self.left = None
@@ -27,5 +52,8 @@ node6 = TreeNode()
 node6.data = 'sm'
 node3.left = node6
 
-print(node6.data)   #루트 출력
-print(node1.right.left.data) #가장 왼쪽 출력
+post_order(node1) #후위순회
+print()
+pre_order(node1) #선위순회
+print()
+pre_order(node1) #중위순회
