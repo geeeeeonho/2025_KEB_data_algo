@@ -1,102 +1,53 @@
-class TreeNode: #각각의 노드[<-, 값, ->]
-	def __init__(self):
-		self.left = None
-		self.data = None
-		self.right = None
+def dfs(g, i, visited):
+    visited[i] = 1  #i = 노드의 값(A,B,C,D,E)
+    print(chr(ord('A')+i), end=' ')#연결된 값을 출력
+    #graph=[[]] 이중 리스트 내부의 길이만큼
+    for j in range(len(g)):
+    #각 문자와 연결이 되어 있음      #방문한 적이 없어야 함
+        if g[i][j] == 1 and not visited[j]:
+            dfs(g, j, visited)  #방문X 시에만 재귀
+                #연결된 문자 j의 값을 다시 노드의 값으로
+                #전부 만족을 못하면 다시 이전의 문자로 돌아감(이전 재귀로 돌아감)
 
 
-if __name__ == "__main__":
-    groups = ['블랙핑크','레드벨벳','마마무','에이핑크','걸스데이','트와이스']
-    #groups = [10,15,8,3,9]
-    root = None
+# 연결O: 1, 연결X:0
+graph = [
+    [0, 0, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+    [1, 1, 0, 1, 1],
+    [1, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0]
+]
 
-    node = TreeNode()
-    node.data=groups[0] #루트 작업
-    root = node     #초기화 작업
+visited = [0] * len(graph)
+dfs(graph, 0, visited)
+#graph=[[],[],[]] , visited=[]
+# i:0스타트 값을 A로 줌
 
-    #데이터 만들기
-    for group in groups[1:]:
-        node = TreeNode()
-        node.data = group
-        current = root
-        while True:
-            if group < current.data: #노드값이 지금 입력하려는 값보다 크면
-                if current.left is None: #노드가 비어있다면
-                    current.left = node
-                    break
-                current = current.left #한번 이동
-            else:                   #노드값이 지금 입력하려는 값보다 작으면
-                if current.right is None: #노드가 비어있다면
-                    current.right = node
-                    break
-                current = current.right #한번 이동
+""""
+visited변화
+[0,0,0,0,0]
+[1,0,0,0,0]A
+[1,0,1,0,0]C
+[1,1,1,0,0]B
+다시 B의 바깥 C로
+[1,1,1,0,0]C
+[1,1,1,0,1]D
+다시 D의 바깥 C로
+[1,1,1,0,1]C
+[1,1,1,1,1]E
+"""
 
-    print("구성완료")
+"""
+문자의 연결
+A->C    (A-C 연결)
+C-B     (C-B 연결)
+B는 조건을 만족하는 연결이 없음(이미 갔던 장소) -> 다시 C로 이동
+C-D     (C-D 연결)
+D는 조건을 만족하는 연결이 없음(이미 갔던 장소) -> 다시 C로 이동
+C-E     (C-E 연결)
 
-    # 데이터 찾기
-    find_group = input("찾을 그룹명을 입력하시오:")
-    current = root
-    while True:
-        if find_group == current.data:
-            print(f"{find_group}을(를) 찾았습니다")
-            break
-        elif find_group < current.data:
-            if current.left is None:
-                print(f'{find_group}이(가) 존재하지 않습니다.')
-                break
-            current = current.left
-        else:
-
-            if current.right is None:
-                print(f'{find_group}이(가) 존재하지 않습니다.')
-                break
-            current = current.right
-
-    #데이터 삭제
-    del_group = input("삭제할 그룹명을 입력하시오:")
-    current = root #시작을 루트로
-    parent = None #부모노드를 지정
-    while True:
-        #a.삭제하려는 값과 현재 노드의 값이 일치 할때
-        if del_group == current.data:
-            #자식이 없는 경우
-            if current.left == None and current.right == None:
-                if parent.left == current:#자신이 부모의 왼쪽에 있다면
-                    parent.left = None
-                else:                     #자신이 부모의 오른쪽에 있다면
-                    parent.right =None
-                del(current)
-
-            #자식이 좌측에 있을 경우
-            elif current.left != None and current.right == None:
-                if parent.left == current:#자신이 부모의 왼쪽에 있다면
-                    parent.left = current.right#자식의 위치를 부모의 방향에
-                else:                     #자신이 부모의 오른쪽에 있다면
-                    parent.left = current.right#자식의 위치를 부모의 방향에
-                del(current)
-
-            #자식이 우측에 있을 경우
-            elif current.left == None and current.right != None:
-                if parent.left == current:#자신이 부모의 왼쪽에 있다면
-                    parent.left = current.right#자식의 위치를 부모의 방향에
-                else:                     #자신이 부모의 오른쪽에 있다면
-                    parent.left = current.right#자식의 위치를 부모의 방향에
-                del(current)
-
-            print(del_group,'이(가) 삭제됨.')
-            break
-
-        # a.삭제하려는 값 < 현재 노드의 값
-        elif del_group < current.data:
-            if current.left == None:
-                print(del_group, '이(가) 트리에 없음')
-                break
-            parent =current
-            current =current.left
-        # a.삭제하려는 값 > 현재 노드의 값
-        else:
-            if current.right == None:
-                print(del_group, '이(가) 트리에 없음')
-                break
-            parent =current
-            current =current.right
+A - C - B
+| / |
+D - E
+"""
