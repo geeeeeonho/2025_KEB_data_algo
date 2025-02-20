@@ -33,22 +33,26 @@ def search(root, value):
 
 #너비우선탐색(bfs)
 from collections import deque
-def bfs(node):  #시작 시 node는 root
-    current = node
-    visited=[]
-    visited.append(node.data) #방문기록 추가
-    queue = deque([node.data])  #current값을 가진 queue 생성
+
+def bfs(node):  # 시작 시 node는 root
+    if node is None:
+        return
+
+    visited = []  # 방문 기록 리스트
+    queue = deque([node])  #노드의 값이 아닌 전체 노드 자체를 큐에 추가
+
     while queue:
-        i = queue.popleft() #dequeue
-        current.data = i
-        print(f"{current.data} ", end='')
-        visited.append(current.data)  # 방문기록 추가
+        current = queue.popleft()  #dequeue (노드 객체 가져오기)
+        print(f"{current.data} ", end='')  #현재 노드 값 출력
+        visited.append(current.data)  #방문한 값 추가
+
+        # 왼쪽 자식이 존재하고 방문하지 않았다면 큐에 추가
         if current.left is not None and current.left.data not in visited:
             queue.append(current.left)
-            return
+
+        # 오른쪽 자식이 존재하고 방문하지 않았다면 큐에 추가
         if current.right is not None and current.right.data not in visited:
             queue.append(current.right)
-            return
 
 
 
