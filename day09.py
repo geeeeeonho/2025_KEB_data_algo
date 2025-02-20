@@ -18,30 +18,31 @@ def print_graph(g) :
         print()
     print()
 
-
+#중복 경로를 찾아서 제거하기
 def find_vertex(g, find_vtx) -> bool:
-	stack = []
-	visited_ary = []
+	stack = []			#스택생성
+	visited_ary = []	#방문장소 리스트
 
-	current = 0
+	current = 0			#시작 노드 생성
 	stack.append(current)
 	visited_ary.append(current)
 
 	while len(stack) != 0:
 		next = None
 		for vertex in range(g_size) :
-			if g.graph[current][vertex] != 0 :
-				if vertex in visited_ary :
+			if g.graph[current][vertex] != 0 :#경로가 존재하면
+				if vertex in visited_ary :#방문한 적이 있으면 패스
 					pass
-				else :
-					next = vertex
-					break
+				else :					  #방문한 적이 없으면
+					next = vertex	#다음 이동장소로 지정
+					break#for vertex문 탈출
 		if next is not None:
-			current = next
-			stack.append(current)
-			visited_ary.append(current)
+			current = next			#다음 이동장소를 현재 장소로
+			stack.append(current)	#스택에 장소 저장
+			visited_ary.append(current)	#방문한 리스트에 장소 추가
 		else :
-			current = stack.pop()
+			current = stack.pop() #다음이동장소가 없으면 이전스택을 터트린다
+	#while 방문이 전부 끝나면
 	if find_vtx in visited_ary :
 		return True
 	else :
@@ -73,8 +74,7 @@ for i in range(g_size) :
 print(edge_ary, len(edge_ary))
 
 # 가중치 순으로 목록 정렬 (내림차순)
-from operator import itemgetter
-edge_ary = sorted(edge_ary, key = itemgetter(0), reverse = True)
+edge_ary.sort(reverse=True)
 
 print('가중치 순으로 목록 정렬')
 print(edge_ary, len(edge_ary))
