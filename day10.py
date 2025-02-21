@@ -20,7 +20,7 @@ def insertion_sort(l):
         while i > 0 and l[i-1] > value:#변수보다 앞의 값이 더 크면
             l[i] = l[i-1]             #앞의 위치에 이동
             i=i-1
-            print(i,  end= ' ')
+        print(i,  end= ' ')
         l[i]=value #while이 끝나면 벨류를 현재 위치로 옮김
     return l
 
