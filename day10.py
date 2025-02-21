@@ -1,9 +1,9 @@
 #버블 정렬(오름차순)
 def bubble_sort(l):
     l_length=len(l) - 1
-    for i in range(l_length-1):
+    for i in range(l_length):
         no_swap = True          #스왑 설정
-        for j in range(l_length-1-i):   #전체 크기에서 이미 처리한 수는 제외
+        for j in range(l_length-i):   #전체 크기에서 이미 처리한 수는 제외
             if l[j] > l[j+1]:
                 l[j] , l[j + 1] = l[j+1] , l[j] #둘의 위치 변경
                 no_swap = False #스왑설정
@@ -24,6 +24,7 @@ def insertion_sort(l):
         l[i]=value #while이 끝나면 벨류를 현재 위치로 옮김
     return l
 
-alist=[13,33,99,15,100,29,-11,3]
-print(bubble_sort(alist))
-print(insertion_sort(alist))
+alist=[13,33,99,15,100,29,-11,1]
+print('=버블 정렬 과정\n',bubble_sort(alist))
+alist=[13,33,99,15,100,29,-11,1]
+print('=삽입 정렬 과정\n',insertion_sort(alist))
