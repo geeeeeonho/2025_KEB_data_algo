@@ -39,10 +39,35 @@ def insertion_sort(l):
         l[i]=value #while이 끝나면 벨류를 현재 위치로 옮김
     return l
 
-#무작위의 백만개 리스트
-lists1 = [random.randint(1,100000) for _ in range(10000)]
+
+#퀵 정렬(중복을 병합)
+def quick_sort(l):
+    n = len(l)
+    if n <= 1: return l
+    pivot = l[n//2]
+    left , right = list() , list()
+
+    for i in l:
+        if i<pivot:
+            left.append(i)
+        elif i > pivot:
+            right.append(i)
+
+    return quick_sort(left)+[pivot]+quick_sort(right)
+
+#무작위의 수 리스트
+lists1 = [random.randint(1,100000) for _ in range(12000)]
 lists2=lists1.copy()
-print('버블 정렬 과정\n')
+lists3=lists1.copy()
+
+print('버블 정렬 과정')
 bubble_sort(lists1)
-print('삽입 정렬 과정\n')
+
+print('삽입 정렬 과정')
 insertion_sort(lists2)
+
+print('퀵 정렬 과정')
+s = time.time()
+quick_sort(lists3)
+e = time.time()
+print(f'실행시간 : {e - s}초')
