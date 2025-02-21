@@ -55,16 +55,6 @@ def bfs(node):  # 시작 시 node는 root
             queue.append(current.right)
 
 
-
-
-
-    # if node is None:
-    #     return
-    # post_order(node.left)
-    # post_order(node.right)
-    # print(f"{node.data} ", end='')
-
-
 def delete(root, value):
     if root is None:
         return root
