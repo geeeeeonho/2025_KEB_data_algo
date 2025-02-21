@@ -39,7 +39,7 @@ def bfs(node):  # 시작 시 node는 root
         return
     queue = deque([node])   #시작 루트를 queue리스트에 추가
     while queue:
-        currrent = queue.popleft()  #없앤 queue리스트의 노드값을 받아온다.
+        current = queue.popleft()  #없앤 queue리스트의 노드값을 받아온다.
         print(f"{current.data}",end=' ')
         if current.left:
             queue.append(current.left)
