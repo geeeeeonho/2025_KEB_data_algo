@@ -12,6 +12,18 @@ def bubble_sort(l):
             return l
     return l #최종 변경 내용 제출
 
-#alist=[13,33,8,-11,9,1]
-alist=[-11,1,8,9,13,33]
+
+#삽입정렬
+def insertion_sort(l):
+    for i in range(1, len(l)):
+        value = l[i]   #비교할 변수를 백업
+        while i > 0 and l[i-1] > value:#변수보다 앞의 값이 더 크면
+            l[i] = l[i-1]             #앞의 위치에 이동
+            i=i-1
+            print(i,  end= ' ')
+        l[i]=value #while이 끝나면 벨류를 현재 위치로 옮김
+    return l
+
+alist=[13,33,99,15,100,29,-11,3]
 print(bubble_sort(alist))
+print(insertion_sort(alist))
